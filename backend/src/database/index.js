@@ -6,7 +6,7 @@ Mongoose.set("useCreateIndex", true);
 let database;
 
 exports.connection = () => {
-  const uri = "mongodb://localhost/projectFinal";
+  const uri = "mongodb://localhost/to-do-web";
 
   Mongoose.connect(uri, {
     useNewUrlParser: true,

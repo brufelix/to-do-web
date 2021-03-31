@@ -3,6 +3,7 @@ const {
 } = require("../model");
 
 module.exports = app => {
+
   app.get("/", (_, response, next) => {
     return response.json({
       message: "Welcome: TASK API"
@@ -15,7 +16,6 @@ module.exports = app => {
       if (error) {
         throw new Error("Error get /tasks")
       }
-
       try {
         response.status(200).send(result);
       } catch (_) {
@@ -25,79 +25,48 @@ module.exports = app => {
 
   })
 
-  app.get("/task/:id", (request, response, next) => {
-
-    ModelTask.findOne({
-      id: request.query.id
-    }, (error, result) => {
-      if (error) {
-        throw new Error("Error get /task/id")
-      }
-
-      try {
-        response.status(200).send(result);
-      } catch (_) {
-        throw new Error("Error get /task/id")
-      }
-    })
-
-  })
-
-  app.post("/task/user", (request, response, next) => {
+  app.post("/task", (request, response, next) => {
 
     const newTask = new ModelTask({
-      description: request.body.description
+      description: request.body.description,
+      done: false,
     })
 
     newTask.save();
 
-    response.status(200).json({
-      code: 200,
-      message: `task created`
-    });
+    ModelTask.find((error, result) => {
+      if (error) {
+        throw new Error("Error get /tasks")
+      }
+      try {
+        response.status(200).send(result);
+      } catch (_) {
+        throw new Error("Error get /tasks")
+      }
+    })
 
   })
 
   app.delete("/task/:id", (request, response, next) => {
 
-    ModelTask.remove({
-      id: request.query.id
+    ModelTask.deleteOne({
+      _id: request.params.id
     }, (error) => {
       if (error) {
         throw new Error("Error delete /task/id")
       }
 
       try {
-        response.status(200).json({
-          code: 200,
-          message: `user ${request.query.id} deleted`
-        });
-      } catch (_) {
-        throw new Error("Error delete /task/id")
-      }
-    })
-
-  })
-
-  app.put("/task/:id", (request, response, next) => {
-
-    ModelTask.updateOne({
-      _id: request.query.id
-    }, {
-      $set: {
-        done: true,
-        pending: false,
-      }
-    }, (error) => {
-      if (error) {
-        throw new Error("Error put /tasks/id")
-      }
-
-      try {
-        response.status(200).json({
-          code: 200,
-          message: `tasks ${request.query.id} updated`
-        });
+        ModelTask.find((error, result) => {
+          if (error) {
+            throw new Error("Error get /tasks")
+          }
+          try {
+            response.status(200).send(result);
+          } catch (_) {
+            throw new Error("Error get /tasks")
+          }
+        })
       } catch (_) {
         throw new Error("Error put /tasks/id /tasks")
       }
@@ -105,29 +74,66 @@ module.exports = app => {
 
   })
 
-  app.put("/pending/:id", (request, response, next) => {
+  app.put("/task", (request, response, next) => {
 
     ModelTask.updateOne({
-      _id: request.query.id
+      _id: request.body._id
     }, {
       $set: {
-        pending: true,
-        done: false
+        done: true,
       }
     }, (error) => {
       if (error) {
-        throw new Error("Error put /pending/id")
+        throw new Error("Error put /tasks/id")
       }
 
       try {
-        response.status(200).json({
-          code: 200,
-          message: `Error put /pending/id`
-        });
+        ModelTask.find((error, result) => {
+          if (error) {
+            throw new Error("Error get /tasks")
+          }
+          try {
+            response.status(200).send(result);
+          } catch (_) {
+            throw new Error("Error get /tasks")
+          }
+        })
       } catch (_) {
-        throw new Error("Error put /pending/id")
+        throw new Error("Error put /tasks/id /tasks")
       }
     })
+
+  })
+
+  app.put("/task/pending", (request, response, next) => {
+
+    ModelTask.updateOne({
+      _id: request.body._id
+    }, {
+      $set: {
+        done: false,
+      }
+    }, (error) => {
+      if (error) {
+        throw new Error("Error put /tasks/id")
+      }
+
+      try {
+        ModelTask.find((error, result) => {
+          if (error) {
+            throw new Error("Error get /tasks")
+          }
+          try {
+            response.status(200).send(result);
+          } catch (_) {
+            throw new Error("Error get /tasks")
+          }
+        })
+      } catch (_) {
+        throw new Error("Error put /tasks/id /tasks")
+      }
+    })
+
   })
 
 }

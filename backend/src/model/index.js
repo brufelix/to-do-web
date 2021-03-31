@@ -13,11 +13,6 @@ const schemaTask = new Schema({
     required: true,
     default: false,
   },
-  pending: {
-    type: Boolean,
-    required: true,
-    default: true,
-  }
 });
 
 const ModelTask = model("tasks", schemaTask)
