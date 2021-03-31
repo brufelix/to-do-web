@@ -1,0 +1,4 @@
+.containerCentral {
+    display: flex;
+    flex-direction: column;
+}

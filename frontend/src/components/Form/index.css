@@ -1,0 +1,16 @@
+.todoForm {
+    margin-bottom: 30px;
+}
+
+.container-input {
+    display: flex;
+    width: 90%;
+}
+
+input.field-input {
+    height: 30px;
+    width: 100%;
+    margin-left: 15px;
+    border-radius: 5px;
+    border-color: black;
+}

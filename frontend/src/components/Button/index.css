@@ -1,0 +1,55 @@
+.container-icon {
+    display: flex;
+    justify-content: center;
+    width: 40px;
+    align-items: center;
+    margin-left: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.container-icon:focus {
+    outline-style: none;
+}
+
+.container-icon:hover {
+    background-color: blue;
+}
+
+button.container-icon.search:hover {
+    background-color: blue;
+}
+
+.icon {
+    font-size: 15px;
+    color: oldlace;
+}
+
+button.container-icon.done {
+    background-color: green;
+}
+
+button.container-icon.back {
+    background-color: yellow;
+}
+
+button.container-icon.trash {
+    background-color: red;
+}
+
+button.container-icon.search {
+    background-color: darkblue;
+}
+
+.markedAsDone {
+    text-decoration: line-through;
+    color: #777;
+}
+
+button.container-icon.disabled:hover {
+    background: red;
+}
+
+button.disabled {
+    background: lightslategray;
+}

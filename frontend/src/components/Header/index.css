@@ -1,0 +1,10 @@
+.page-header {
+    height: 50px;
+    margin-bottom: 20px;
+    border-bottom: solid 1px silver;
+}
+
+.small {
+    color: silver;
+    font-weight: normal;
+}
